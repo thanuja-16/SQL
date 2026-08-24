@@ -1,0 +1,115 @@
+Day - 1
+1. What is Database?
+To store and manage the data in a database.
+
+2.What is Data?
+Collection of raw facts and unprocessed values is called data.
+Facts means figures, symbols, numbers, etc.
+Data is meaningless until it is processed.
+
+Information:
+It is nothing but processed or meaningful data.
+
+Example - 1:
+
+Student ID = 1
+
+3. File Management System (FMS)
+
+What is the purpose?
+We used to store the data in files before databases.
+
+Key functions of FMS:
+1.Create a file
+2.Open a file
+3.Delete a file
+4.Read a file
+5.Share data
+6.Provide access
+7.Drawbacks of FMS:
+8.Data Inconsistency
+9.Less Security
+10.Data Redundancy
+11.Backup / Recovery problems
+12.Data Manipulation problems
+
+To overcome all these problems, they introduced databases.
+
+4. What is Database?
+A database is used to store and manage data.
+
+5.Management System
+To manage data like Retrieve, Update, and Delete data.
+To manage the database, we use DBMS.
+
+DBMS
+DBMS stands for Database Management System.
+It is a software.
+The main purpose of DBMS is to store and manage data permanently.
+
+> Advantages of DBMS:
+
+1.Reduce Data Redundancy.
+2.Provide more security.
+3.Reduce Data Inconsistency.
+4.Possible to Backup / Recover the data.
+5.Maintain Data Integrity.
+
+> Types of DBMS:
+
+NoSQL DBMS
+
+The data can be stored in non-tabular formats.
+It is mainly used for unstructured or semi-structured data.
+
+Examples:
+
+MongoDB
+Cassandra
+RDBMS
+
+RDBMS stands for Relational Database Management System.
+In RDBMS, data is stored in rows and columns (table format).
+The data is stored in a structured format.
+
+> Examples:
+
+MySQL
+Oracle
+PostgreSQL
+
+> MySQL:
+
+It is an RDBMS.
+MySQL data is stored in table format.
+MySQL provides relationships between tables.
+It is used to maintain and manage data.
+It is an open-source database.
+MySQL Community Edition is free of cost.
+
+> Field:
+
+A field is a column in a table.
+
+> Example:
+
+Student ID = 101
+
+> Record / Row:
+A collection of fields is called a record or row.
+
+> Example:
+
+Student ID = 101, SName = Ravi, Course = SQL
+
+> Table:
+
+A collection of records and fields is called a table.
+
+MySQL Command:
+
+mysql -u root -p
+
+IMP:
+
+What is the difference between MySQL and Oracle SQL?
