@@ -1,0 +1,130 @@
+Day - 8
+
+18|8|2026  8th day
+
+how to add a new column in a particular place in already existing table.
+create table student(id int,name varchar(23),age int);
+add email column in student table in first;
+alter table student add column email varchar(28) first;
+add dob column after name
+alter table student add column dob date after name;
+
+cse 10,ece 12, mech 5,civil 8
+select dept,count(*) from student group by dept;
+
+where cluse is used to filter the rows
+group by clause is used to group the rows
+having clause is used to filter the groups
+
+having cluse :
+the having cluse is used to filter the groups
+the having cluse is used to condition for aggregate function.
+having cluse always written into a after group by.
+
+find the dept whose dept students is greater than 10?
+select dept,count(*)as tcount from student group by dept having tcount >10;
+
+select category, sum(quantity) from product
+group by category;
+select category, sum(quantity) from product
+group by category having sum(quantity)>10;
+
+to find the max price of each category and to retrieve only which category maximum price is greater than 50000?
+select category, max(price) from product
+group by  category having max(price)>50000;
+
+order by  cluse:
+order by cluse is used to sort the value based on column
+syntax:
+asc : it represents the ascending order.
+desc: it represents descending order.
+
+the default nature of order by cluse is ascending order.
+select * from product order by price;   (default it comes in ascending order))
+select * from product order by price dese; 
+select * from product order by price asc; 
+
+find the each category count and retrieve categories in ascending order.
+select category,count(*) from product group by category;
+select category,count(*) as tcount from product group by  
+category order by  tcount;
+
+writing order:
+where
+group by
+having
+order by
+limit
+
+distinct : 
+it is used to remove the duplicates or find the unique data.
+select distinct supplier_city from product;
+
+assignment: 
+ select job_role,avg(salary) from employees
+    -> group by job_role having avg(salary)>50000;
+
+ select job_role,max(salary) from employees
+    -> group by job_role having max(salary)>80000;
+
+select city,count(*) from employees
+    -> group by city having count(*)>3;
+
+
+select gender,sum(salary) from employees
+    -> group by  gender having sum(salary)>200000;
+
+mysql> select gender,sum(salary) from employees
+    -> group by  gender having sum(salary)>200000;
+
+select gender,sum(sal) from employee
+    -> group by  gender having sum(sal)>200000;
+
+select job,min(sal) from employee
+    -> group by job  having min(sal)>30000;
+
+ select job,count(*) from employee
+    -> group by job having count(*)>=2;
+
+select job,sum(sal) from employee group by job having sum(sal)<300000;
+
+select city,avg(age) from employee group by city having avg(sal)>30;
+
+select job,max(sal) from employee group by job having max(sal)<70000;
+
+ select * from employee order by sal asc;
+
+select * from employee order by sal desc;
+
+ select * from employee order by job asc;
+
+ select * from employee order by job asc , sal desc;
+
+ select * from employee order by city,ename;
+
+ select * from employee order by age asc;
+
+ select * from employee order by age desc;
+
+select * from employee order by job,dept,sal;
+
+select * from employee order by dept asc ,job asc,ename desc;
+
+select * from employee order by gender,sal desc;
+
+Employee group by dept order by sum(sal) desc; ->select dept.sount(*) from Employee group by dept having count(*)>3 order by count(*) desc;
+->select dept,sum(sal) from
+->select job. avg (sal)
+from Employee group by job having avg(sal)>45000 order by avg(sal);
+
+->select citv,count(*)
+from Employee group by city having count(*)>2 order by city;
+
+->select dept,max(sal)
+from Employee group by dept having max(sal)>60000 order by max(sal)
+gender,sal,sum(sal) from Employee group by gendec,sal having sum(sal)>100006
+desc; order by sum(sal);
+->select 
+->select dept,count(*) from Employee group by dept having count(*)>=4 order by dept: dept,avg(sal) from Employee group by dept order by avg(sal) desc;
+ ->select job,min(Sal) from Employee group by job having min(sal)>25000 order by min(sal).
+ ->select city,count() from Employee group by city having count(")>1 order by count(*) desc;

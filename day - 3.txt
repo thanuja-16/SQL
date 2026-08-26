@@ -1,0 +1,112 @@
+day - 3
+
+10/8/2026   day-3
+Constrains :
+Constrains are used to rules applied in tables columns. The main purpose of constrains are used to ensure data consistency, data integrity, data accuracy.
+There are six constrains
+1.unique
+2.not null
+3.primary key
+4.foreign key
+5.check
+6.default
+
+1.unique :
+Ensure all the values are unique in a column
+EX: stid
+2.not null:
+Every columns must be contain a value.
+EX: name
+3.Primary key:
+Combination of not null and unique.
+EX : ph:no, email, stid, adhar id 
+4.Foreign key:
+It is used to maintain the relationship between tables.
+EX: customer , menu
+5.Check:
+The column values must be contain to above mention the range of values.
+EX : age, marks
+6.Defaut:
+If in case no insert any data in that column that time it automatically to insert default value
+EX : address
+
+DDL command :
+create table table_name(coll datatype constrain_name,col2 data type
+id
+name
+address
+age
+
+crate table employee(id int, name varchar(20), address varchar(20)
+  
+create database da22;
+show database;
+use da22;
+show tables;
+
+crate table employee(id int, name varchar(20), address varchar(20)
+to know table structure :
+desc table_name;
+describe table_name; (desc employee;)
+show create  table table_name  (show create table employee;)
+to create a same table like structure before table(create table employee1 like employee;)
+show tables;
+desc employee1;
+to add new column:
+alter table table_name add column salary decimal(10,2);
+(alter table employee add column salary decimal(10,2);)
+(desc employee;)
+(alter table table_name add column salary decimal(10,2),phonenum bigint;)
+
+remove column:
+alter table table_name drop column colname;(alter table employee drop column salary;)
+for more than one
+alter table table_name drop column colname,drop colum  colname...etc;
+
+
+modify data type:
+alter table table_name modify colname updatedaatatype;
+(alter table employee modify name varchar(100);
+(alter table employee modify id bigint;)
+
+Drop:
+drop table table_name;
+(drop table employee1;)(show tables;)
+
+rename :
+ rename table old to new name;
+(rename table employee to employees;)(show database;)
+rename column:
+alter table table_name rename column old_column to new column;
+(alter table employees rename column id to eid;)(desc employees;)
+
+
+employee:
+id, name, address, age, phonenum;  (with constrains)
+create table employee (id int primary key,
+                      name varchar(20) not null,
+                      address varchar(20) default 'hyd',
+                      age int check (age>0 and age<120),
+                      phonenum bigint unique);
+alter table employee add column did int;
+
+create table dept(did int,dname varchar(20),
+                  foreign key(did) references employee(id));
+
+
+assigenment: create table student (sid int primary key,
+                                  sname varchar(20),
+                                  age int ,
+                                  city varchar(20));
+create table employee2 (eid int primary key,
+                      ename varchar(20) not null,
+                      salary decimal(10,2),
+                      email varchar(25) unique);
+create table department (did int primary key,
+                         dname varchar(28) unique,
+                         location varchar(30));
+create table product (pid int primary key,
+                     pname varchar(20) not null,
+                     price int check (price>0),
+                     quantity int check (quantity>=0));
+

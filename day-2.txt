@@ -1,0 +1,107 @@
+day-2
+
+8/8/26   day-2
+
+Data Model:
+data model is way of organizion the data and representing the data,
+how to store data, how to manipulate the data into DBMS
+
+Types of data model:
+1.Hierarachial data model:
+the organized data into a tree like structure(parent and child)
+every child contain only one parent.
+every parent can have multiple childs.
+In that model easy retrive and maintain the data.
+In that above model not comfortable for maintain complex relationships.
+EX : institute -----cource-------students
+
+Network data model:
+The data is organized into nodes(entities) and edges(relationships)
+In that mode one parent contain many childs.
+One child can have many parent.
+It flexible for compare to hierarical model.
+EX : one student can take multiple cource
+each cource learn multiple students.
+
+Object oriented data model :
+All data represented at objects.
+Every object can have 2 things(properties)
+Properties and behaviors.
+
+Relational data model:
+The data is stored into a table with column(fields) and rows(records/tuple/entry).
+Ex : student : stdid, sname..etc
+
+Data Model Levels:
+1.conceptual level (what we need)
+2.Logical level(to design)
+3.Physical level(implementation)
+ 
+Introduction of SQL:
+^^^^^^^^^^^^^^^^^^
+sql stands for structured query language.
+It is used to communicate with database such as MySQL, oracle, postgrace
+Using sql language :
+To create and delete structure in database
+To insert , update, and delete data.
+Easy to retrive the data into a database.
+To provide the control access.
+
+SQL language is divided into different categories(sub):
+1.DDL
+DDL stands for data definition language. it used to create manupaliate database . such as tables, views, database, and sceme
+i)create
+ii)alter
+iii)drop (it remove total structure)
+iv)truncate  (it is used only remove data not structure)
+v)rename
+It only perform on struture 
+
+2.DML
+DML stands for data manipulation language. it is used to add, update and delete the data
+i)insert (new data insert)  
+ii)update  (to modify the insert data) 
+iii)delete  (to delete )
+It perform on data
+
+3.TCL
+TCL stands for tranction control language. it is used to tranctions
+i)commit; 
+ii)rollback;
+iii)savepoint;(check points after rollback)
+
+4.DQL
+DQL stands for data query language. it is used to retrive the data
+i)select(used to retrive the data)
+
+5.DCL
+DCL stands for data control language. it is used to provide control access for database
+i)grant  (gives the permission to read write..etc)
+ii)revoke 
+
+Data types in SQL :
+1.Numeric data types
+tinyint : it store very tiny amount of data 0&1
+smallint :
+mediumint
+int
+bigint
+float
+decimal(p,s) : total number of digits before decimal point, total number of digits after decimal points
+Boolean : true or 1/false or 0
+ 
+2.String data types
+char() : It contain fixed length
+EX char(2);
+varchar() : it contain variable length
+EX varchar(20);
+text 
+Enum : it is select only one value in a pre defined list.
+Enum ('java' ,'phyton', 'da');
+
+3.date and Time types
+date : 'yyyy-mm-dd'
+time : 'hh-mm-Ss'
+date and time : 'yyyy-mm-dd hh-mm-ss
+timestamp : current time
+

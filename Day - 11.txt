@@ -1,0 +1,54 @@
+Day - 11
+24|8|2024  day 11:
+
+eid(auto increment) ename esal
+insert into emp values('jaya',10000);  
+select last_insert_id();  //1
+(it shows only now insert values)
+
+show table status like 'tablename';
+(it shows the auto increment next value for previous day or before insert data)
+
+set operators : it is used to combine the two or more select queries.
+1.union  : it retrieves the both tables and remove duplicates all ignore
+select * from old_student union select * from new_student;
+2.unionall : it is same as the union but also takes duplicates
+select * from oid_student union all select * from new_student; 
+3.insert  : it takes the only common values ( in )         before 8.0.31 version doent work
+select * from old_student intersect select * from new_student;
+select * from old_student where in (select * from new_student);
+4.except : it takes the first table it takes except the common values
+select * from old_student except select * from new_student;    (not in)
+select * from old_student where not in (select * from new_student); 
+
+joins:
+^^^^^^ 
+to combine the rows from 2 or more tables.
+to perform this join we should had a common columns 
+different types of joins 
+core joins:
+1.inner join
+2.natural join 
+3.equi join
+4.non equi join
+outer joins:
+1.left join/left outer join
+2.right join/right over join
+3.full join
+self join
+cross join
+
+(select s.sid,s.nsme,s.cid,c.cid,c.cname from student s join course c on s.cid = c.cid;) syntax for joins
+select s.sid,c.cid,c.cname from student s left join course c on s.cid == c.cid; (example of left join)
+select s.student_id,s.student_name,c.course_id,c.course-name from student s
+left join course c on s.course_id = c.course_id;
+select s.student_id,s.student_name,c.course_id,c.course-name from student s
+right join course c on s.course_id = c.course_id;
+select s.student_id,s.student_name,c.course_id,c.course-name from student s
+inner join course c on s.course_id = c.course_id;  (only matching records from both tables)
+
+select s.student_id,s.student_name,c.course_id,c.course-name from student s
+left join course c on s.course_id = c.course_id
+union                                                       to preform full join
+select s.student_id,s.student_name,c.course_id,c.course-name from student s
+right join course c on s.course_id = c.course_id;

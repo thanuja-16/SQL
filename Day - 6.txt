@@ -1,0 +1,87 @@
+Day - 6
+
+13|8|2026 day 6
+
+Predicates/special operators:
+it is a condition. these operators mainly used to range of comparision 
+1.between
+2.in
+3.is null
+4.like
+1.between : to retrive the values between range of 10 to 20
+value>=10 and value<=20;
+value between 10 and 20;
+value not between 10 and 20;
+select * from student where age between 30 and 60;
+select * from student where age not between 30 and 60;
+
+2.in operator : 
+value=10 or value=20;
+val in (10,20);
+val not in (10,20);
+select * from student where id in(1,3);
+select * from student where id not in(1,3);
+
+3.is null: it returns the null value rows.
+Ex : name is null;
+name = null;
+name is not null;
+select * from students where age is null;
+select * from students where age is not null;
+
+
+4.like : it is used pattern matching it contains to wildcards
+i._(underscore) : it represents the single character.
+like operator works on varchar
+name like '___';
+ii.%
+it is indicate 0 or more character.
+name like 'a%';
+name like '%a%';
+name like '%a_';
+name like '%h';
+name not like '%h%';
+name not like 'a%';
+
+
+select * from students where name like 'r%' and id in(2);
+select * from students where name like '%a%' and age between 30 and 60;
+
+isNull(): it assign default value 0 as if it does have value or assign default value 1 to null value. 
+salary:
+200000,null,30000,400000,null
+0        1    0    0      1
+select age,isNull(age) from students;
+
+select salary isNull(salary) from emp;
+salary : 0,1,0,0,1
+
+ifNull(): in this it assign the value to null value.
+select salary ifNull(salary,1000) from emp;
+200000,1000,30000,400000,1000
+select age,ifNull(age,100) from students;
+
+Update:
+it is mainly used to manipulate data.
+syntax
+update students set age=age+10;  null value doesn't change
+update table_name set updatecondition;   (it changes the total table)
+update students set age=age+10 where age=30;
+update table_name set updatecondition where condition;
+
+delete:
+delete command is used to remove all data or particular data.
+syntax
+delete from tablename;  (delete total data)
+delete from students;
+delete from tablename where condition;
+delete from students where name='ram';  (to delete particular row)
+
+drop : totaldata+structure; 
+drop table student;
+delete : total date or particular data not structure
+truncate : remove total data immediately but not structure
+truncate table tablename;
+truncate table student;
+
+

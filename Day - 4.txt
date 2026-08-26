@@ -1,0 +1,73 @@
+Day - 4
+11/8/2026    day 4
+add constraints with existing tables:
+create table emp(id int,age int, name varchar(20),
+address varchar(20), dpid int, phonenum bigint);
+ primary key:
+alter table emp add constraint pk_id primary key(id);
+(in one table only one key is primary key)
+alter table emp drop primary key;
+
+unique constrain:
+alter table emp add constraint uk_ph unique(phonenum);
+we can have more than one unique key
+alter table emp drop constraint uk_ph; syntax
+
+check:
+alter table emp add constraint chk_age check(age>19);
+(show create table emp;)
+alter table emp drop constraint chk_age;
+
+NotNull:
+alter table emp modify name varchar(20) not null;
+alter table emp modify name varchar(20) null;
+
+default:
+alter table emp modify address varchar(20) default "hyd";
+alter table emp modify address varchar(20);   (t0 remove default value) 
+ foreign key:
+alter table dept1 add constraint fk_did foreign key(did) references emp(id);
+first (alter table emp add constrain pk_id primary key(id);)
+
+drop table emp; (it gives you a error as it is a parent table and before you should remove the child table)
+
+procedure constraints/ procedure integrity constraints:  
+we use conditions in this (if..)
+referential integrity constraint:
+to ensure using the foreign key constraints.
+entity integrity constraint:
+primary key
+
+domain integrity constraints:
+
+DML commands:
+^^^^^^^^^^^^
+DML stands for data manipulation language.
+the main purpose of DML commands is used to insert or manupliate data into a tables,views...etc.
+insert
+update
+delete
+Insert: 
+1st way:
+insert into employee values(
+101,'jaya','kur',23,7892649884,202
+);    (to insret the data)
+(select * from employee;)
+2nd way:
+insert into employee(id,name,age,address,phonenum,did)
+values(102,'ram',20,'hyd',2738468999,202);(*)
+3rd way:(to insert  particular data)
+insert into employee(id,name,age)
+values(103,'sam',20);  (*)
+4th way:(to inserting multiple values)
+insert into employee(id,name,age,address,phonenum,did)
+values
+(104,'rama',20,'jntu',273846799,208)
+(105.'ravi',29,'kphp',4637788788,209)
+;
+
+ 
+DQL:
+data query language.it is used to retrive data into tables,views
+select * from employee;    (to see inserted data in table)
+

@@ -1,0 +1,67 @@
+Day - 7
+17|8|2026  day 7
+
+limit:
+limit it used restrict the retrive rows.
+select * from product limit no.of rows;
+select * from product limit 5;
+
+aggregate function:
+the main purpose of aggregate function is used to perform mathematical functions in multiple rows and return single value.
+1.count(*); :  count  it returns the no.of rows count value. 
+select count(*) as total_count from product;
+2.sum(column name); : 
+select sum(quantity) from product;
+3.avg(column name); : it returns a avg of all values in column
+select avg(quantity) from product;
+4.max(column name); : to return a maximum value in acolumn
+select max(price) from product;
+5.min(column name); : to return a mimimum value in column.
+select min(price) from product;
+
+group by:
+to divide the data into a group of same values.
+select category from product group by category;
+ select category,count(*) from product 
+ group by category; ( for counting rows in each category)
+select category, sum(quantity) from product
+group by category; ( to retrive total quantity of each category)
+ select category, avg(quantity) from product
+ group by category;  ( to retrive avg quantity)
+select  category,max(price) from product
+group by category;   ( to find the max price)
+ select category,min(price) from product
+ group by category;
+
+assignement:
+
+mysql> select dept,sum(sal) from employee
+    -> group by dept;
+
+ select dept,count(*) from employee
+    -> group by dept;
+
+mysql> select dept,avg(sal) from employee
+    -> group by dept;
+
+ select dept,max(sal) from employee
+    -> group by dept;
+
+select dept,min(sal) from employee
+    -> group by dept;
+
+select gender,count(*) from employee
+    -> group by gender;
+
+ select gender,avg(sal) from employee
+    -> group by gender;
+
+select job,count(*) from employee
+    -> group by job;
+
+ select job,dept,sum(sal) from employee
+    -> group by job,dept;
+
+ select city,count(*) from employee
+    -> group by city;
+
