@@ -1,0 +1,211 @@
+day-14
+
+27|8|2026   day 14
+
+cross join: 
+
+select s*,c.cname from student s cross join course c;
+natural join :it performs same as inner join
+
+mysql> select e.emp_name,d.dept_name from employee e
+    -> cross join department d;
++----------+-----------+
+| emp_name | dept_name |
++----------+-----------+
+| Rahul    | Testing   |
+| Rahul    | Support   |
+| Rahul    | Marketing |
+| Rahul    | Sales     |
+| Rahul    | Finance   |
+| Rahul    | IT        |
+| Rahul    | HR        |
+| Sneha    | Testing   |
+| Sneha    | Support   |
+| Sneha    | Marketing |
+| Sneha    | Sales     |
+| Sneha    | Finance   |
+| Sneha    | IT        |
+| Sneha    | HR        |
+| Kiran    | Testing   |
+| Kiran    | Support   |
+| Kiran    | Marketing |
+| Kiran    | Sales     |
+| Kiran    | Finance   |
+| Kiran    | IT        |
+| Kiran    | HR        |
+| Anjali   | Testing   |
+| Anjali   | Support   |
+| Anjali   | Marketing |
+| Anjali   | Sales     |
+| Anjali   | Finance   |
+| Anjali   | IT        |
+| Anjali   | HR        |
+| Amit     | Testing   |
+| Amit     | Support   |
+| Amit     | Marketing |
+| Amit     | Sales     |
+| Amit     | Finance   |
+| Amit     | IT        |
+| Amit     | HR        |
+| Priya    | Testing   |
+| Priya    | Support   |
+| Priya    | Marketing |
+| Priya    | Sales     |
+| Priya    | Finance   |
+| Priya    | IT        |
+| Priya    | HR        |
+| Ravi     | Testing   |
+| Ravi     | Support   |
+| Ravi     | Marketing |
+| Ravi     | Sales     |
+| Ravi     | Finance   |
+| Ravi     | IT        |
+| Ravi     | HR        |
+| Meena    | Testing   |
+| Meena    | Support   |
+| Meena    | Marketing |
+| Meena    | Sales     |
+| Meena    | Finance   |
+| Meena    | IT        |
+| Meena    | HR        |
+| Suresh   | Testing   |
+| Suresh   | Support   |
+| Suresh   | Marketing |
+| Suresh   | Sales     |
+| Suresh   | Finance   |
+| Suresh   | IT        |
+| Suresh   | HR        |
+| Divya    | Testing   |
+| Divya    | Support   |
+| Divya    | Marketing |
+| Divya    | Sales     |
+| Divya    | Finance   |
+| Divya    | IT        |
+| Divya    | HR        |
+| Vikas    | Testing   |
+| Vikas    | Support   |
+| Vikas    | Marketing |
+| Vikas    | Sales     |
+| Vikas    | Finance   |
+| Vikas    | IT        |
+| Vikas    | HR        |
+| Pooja    | Testing   |
+| Pooja    | Support   |
+| Pooja    | Marketing |
+| Pooja    | Sales     |
+| Pooja    | Finance   |
+| Pooja    | IT        |
+| Pooja    | HR        |
++----------+-----------+
+
+> select e.emp_name,d.dept_name from employee e
+    -> natural join department d;
++----------+-----------+
+| emp_name | dept_name |
++----------+-----------+
+| Rahul    | IT        |
+| Sneha    | HR        |
+| Kiran    | IT        |
+| Anjali   | Finance   |
+| Amit     | IT        |
+| Priya    | Sales     |
+| Ravi     | Marketing |
+| Divya    | IT        |
+| Vikas    | Support   |
+| Pooja    | HR        |
++----------+-----------+
+
+Subquery:
+^^^^^^^^
+to write a query inside another query.
+the subquery enclosed within parenthesis.
+EX: 
+select query condition(subquery);
+1.singlerow subquery
+2.multirow subquery
+3.nested subquery
+4.corealeted subquery
+
+1.singlerow subquery: the subquery returns only one row that is called single row subquery.
+using >,<,=,>=,<= etc
+select * from product where price=
+(select max(price) from product;
+select max(price) from product where price<
+(select max(price) from product;
+select * from product where price=
+(select max(price) from product where price<
+(select max(price) from product));
+2.multirow subquery : the subquery returns more than one row that is called  multiple subquery
+using any, all, in, some
+any : if only one condition it retrieves the data.
+select * from product where price< any
+(select price from product where category='furniture');
+all : to match all condition
+select * from product where price< all
+(select price from product where category='furniture');
+in :
+ 
+some: it works as sameas like the any
+select * from product where price< some
+(select price from product where category='furniture');
+
+3.nested subquery : multi level of sulectbquery is called as nested subquery.
+select * from product where price=
+(select max(price) from product where price<
+(select max(price) from product));
+
+select max(price) as max_price from product; 
+ 
+ select * from employee where salary<
+    -> (select salary from employee where emp_name = 'Rahul');
++--------+----------+----------+---------+------------+
+| emp_id | emp_name | salary   | dept_id | experience |
++--------+----------+----------+---------+------------+
+|    102 | Kiran    | 45000.00 |      10 |          2 |
+|    108 | Ravi     | 40000.00 |      30 |          1 |
+|    110 | Arun     | 35000.00 |      30 |          1 |
++--------+----------+----------+---------+------------+
+
+mysql> select * from employee where salary<
+    -> (select salary from employee where emp_name = 'Priya');
++--------+----------+----------+---------+------------+
+| emp_id | emp_name | salary   | dept_id | experience |
++--------+----------+----------+---------+------------+
+|    101 | Rahul    | 50000.00 |      10 |          3 |
+|    102 | Kiran    | 45000.00 |      10 |          2 |
+|    103 | Anita    | 65000.00 |      20 |          5 |
+|    106 | Vijay    | 55000.00 |      30 |          4 |
+|    107 | Ajay     | 60000.00 |      40 |          5 |
+|    108 | Ravi     | 40000.00 |      30 |          1 |
+|    110 | Arun     | 35000.00 |      30 |          1 |
++--------+----------+----------+---------+------------+
+
+mysql> select * from employee where dept_id  in
+    -> (select dept_id from department where dept_name in('HR','IT'));
++--------+----------+----------+---------+------------+
+| emp_id | emp_name | salary   | dept_id | experience |
++--------+----------+----------+---------+------------+
+|    101 | Rahul    | 50000.00 |      10 |          3 |
+|    102 | Kiran    | 45000.00 |      10 |          2 |
+|    103 | Anita    | 65000.00 |      20 |          5 |
+|    104 | Priya    | 70000.00 |      20 |          6 |
+|    105 | Sneha    | 80000.00 |      20 |          8 |
++--------+----------+----------+---------+------------+
+
+ select dept_id from department where dept_name in('HR','IT');
++---------+
+| dept_id |
++---------+
+|      10 |
+|      20 |
++---------+
+
+ select * from employee where dept_id =
+    -> (select dept_id from employee where emp_name = 'Vijay');
++--------+----------+----------+---------+------------+
+| emp_id | emp_name | salary   | dept_id | experience |
++--------+----------+----------+---------+------------+
+|    106 | Vijay    | 55000.00 |      30 |          4 |
+|    108 | Ravi     | 40000.00 |      30 |          1 |
+|    110 | Arun     | 35000.00 |      30 |          1 |
++--------+----------+----------+---------+------------+
