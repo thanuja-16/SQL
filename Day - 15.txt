@@ -1,0 +1,89 @@
+Day - 15
+
+co related sub query:
+It means, the sub query depends on current row of outer query
+->ex1: find whose salary is more than average salary in each department
+query : select e.emp_name, e.salary, e.dept_id from employee e
+-> where salary > (select avg(salary) from employee e1
+-> where e1.dept_id = e.dept_id);
++----------+----------+---------+
+| emp_name | salary   | dept_id |
++----------+----------+---------+
+| Rahul    | 50000.00 |      10 |
+| Sneha    | 80000.00 |      20 |
+| Vijay    | 55000.00 |      30 |
+| Meena    | 75000.00 |      40 |
++----------+----------+---------+
+
+->ex2. find the employee whose salary is greater than of minimum salary in same department
+query : select e.emp_name,e.salary,e.dept_id from employee e
+-> where salary > (select min(salary) from employee e1
+-> where e1.dept_id = e.dept_id);
++----------+----------+---------+
+| emp_name | salary   | dept_id |
++----------+----------+---------+
+| Rahul    | 50000.00 |      10 |
+| Priya    | 70000.00 |      20 |
+| Sneha    | 80000.00 |      20 |
+| Vijay    | 55000.00 |      30 |
+| Ravi     | 40000.00 |      30 |
+| Meena    | 75000.00 |      40 |
++----------+----------+---------+
+
+->ex3: find employee details of each dept min salary
+query:   select e.dept_id,min(salary) as min_salary from employee e group by e.dept_id;
++---------+------------+
+| dept_id | min_salary |
++---------+------------+
+|      10 |   45000.00 |
+|      20 |   65000.00 |
+|      30 |   35000.00 |
+|      40 |   60000.00 |
++---------+------------+
+
+->exist:
+ex:
+->select c from customers c where exists(select o.customer_id from orders o where o.customer_id = c.customer_id);
+
+->select c.* from customers c join orders o
+
+on c.customer_id = o.customer_id;
+
+->not exist:
+->select c from customers c where not exists(select o.customer_id from orders o where o.customer_id = c.customer_id);
+
+1.Find employees whose salary is equal to the maximum salary in their department.
+query : select * from employee e
+-> where salary=(select max(salary) from employee where dept_id = e.dept_id);
++--------+----------+----------+---------+------------+
+| emp_id | emp_name | salary   | dept_id | experience |
++--------+----------+----------+---------+------------+
+|    101 | Rahul    | 50000.00 |      10 |          3 |
+|    105 | Sneha    | 80000.00 |      20 |          8 |
+|    106 | Vijay    | 55000.00 |      30 |          4 |
+|    109 | Meena    | 75000.00 |      40 |          7 |
++--------+----------+----------+---------+------------+
+
+2.Find employees whose experience is greater than the average experience of their department.
+select * from employee e
+-> where experience>(select avg(experience) from employee where dept_id = e.dept_id);
++--------+----------+----------+---------+------------+
+| emp_id | emp_name | salary   | dept_id | experience |
++--------+----------+----------+---------+------------+
+|    101 | Rahul    | 50000.00 |      10 |          3 |
+|    105 | Sneha    | 80000.00 |      20 |          8 |
+|    106 | Vijay    | 55000.00 |      30 |          4 |
+|    109 | Meena    | 75000.00 |      40 |          7 |
++--------+----------+----------+---------+------------+
+
+3.Find the lowest-paid employee in each department.
+select * from employee e
+-> where salary = (select min(salary) from employee where dept_id = e.dept_id);
++--------+----------+----------+---------+------------+
+| emp_id | emp_name | salary   | dept_id | experience |
++--------+----------+----------+---------+------------+
+|    102 | Kiran    | 45000.00 |      10 |          2 |
+|    103 | Anita    | 65000.00 |      20 |          5 |
+|    107 | Ajay     | 60000.00 |      40 |          5 |
+|    110 | Arun     | 35000.00 |      30 |          1 |
++--------+----------+----------+---------+------------+
