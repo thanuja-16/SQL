@@ -1,0 +1,134 @@
+Day - 18
+1|9|26
+
+Stored procedures:
+the procedure is a group of sql statements.
+it is used to store the group of sql statements inside the database.
+the main purpose of stored procedure is used to code reusability
+procedure syntax:
+delimiter //
+create procedure procedure_name()
+begin
+
+write sql statements
+
+end //
+delimiter;
+
+how to call the procedure:
+call procedurename();
+
+procedure status:
+show procedure status;
+show procedure status where db='databasename;
+
+delimiter //
+create procedure emp_details()
+begin
+select * from employee;
+end //
+delimiter ;
+
+mysql> show procedure status where db='da22';
++------+------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db   | Name       | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++------+------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| da22 | empDetails | PROCEDURE | root@localhost | 2026-09-01 11:40:13 | 2026-09-01 11:40:13 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++------+------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+
+with parameter stored procedure:
+in : the procedure take the input.
+out : return the output
+inout : take and return output
+
+ ( in )
+delimiter //
+create procedure empIDDetails(in empID int)
+begin
+select * from employee where emp_id=empID;
+end//
+delimiter ;
+
+
+mysql> delimiter //
+mysql> create procedure empIDDetails(in empID int)
+    -> begin
+    -> select * from employee where emp_id=empID;
+    -> end//
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> delimiter;
+    -> call empIDDetails(101);
+
+
+call empIDDetail(101);
+
+(  out )
+the procedure return a value.
+
+delimiter //
+create procedure empCount(out cemp int)
+begin
+select count(*) into cemp from employee;
+end //
+delimiter ;
+
+callempCount(@cemp);
+select @cemp;
+
+ex:
+mysql> delimiter //
+mysql> create procedure empCount(out cemp int)
+    -> begin
+    -> select count(*) into cemp from employee;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delimiter ;
+mysql> call empCount(@cemp);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select @cemp;
++-------+
+| @cemp |
++-------+
+|    15 |
++-------+
+
+( inout )
+the procedure take input and return output
+
+delimiter //
+create procedure salaryUpdate(in Eid int,inout esal decimal (10,2))
+begin
+update employee set salary=salary+5000 where emp_id=Eid;
+
+select salary into esal from employee where emp_id=Eid;
+end //
+delimiter ;
+
+call salaryUpdate(101,@salary);
+
+select @salary
+
+EX :
+sql> delimiter //
+mysql> create procedure salaryUpdate(in Eid int,inout esal decimal (10,2))
+    -> begin
+    -> update employee set salary=salary+5000 where emp_id=Eid;
+    ->
+    -> select salary into esal from employee where emp_id=Eid;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delimiter ;
+
+mysql> call salaryUpdate(101,@salary);
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> select @salary;
++---------+
+| @salary |
++---------+
+|    NULL |
++---------+
