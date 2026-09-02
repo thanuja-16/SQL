@@ -1,0 +1,57 @@
+Day - 19
+
+2|9|2026
+
+E-R Diagrams/E-R models:
+E-R stands for entity relationship 
+the main purpose to represent graphically 
+Entity :
+entity is nothing but a table
+it is represented in rectangle.
+attributes are represented using ellipse
+to establish the relatios we use diamond 
+use line to connect   
+kind of entity:
+tangagle entity : we can see and touch entities 
+car, mobile, person
+intendable entity : we cannot to see touch entites
+bank
+types of entities :
+strong entity: the table contain primary key
+the strong entity is represented in single entitty
+weak entity: the table doesn't contain primary key
+the weak entity is represented double rectangle.
+
+Attributes :
+attributes is nothing but columns
+in one entity it contains one or more attributes
+they are represented by ellipse 
+Types of Attributes:
+simple attribute : the attribute cannot sub divided 
+EX :dob ,age
+composite attribute :the attribute can sub divided, it is represent by ellipse
+EX :name
+single values attribute : the row contain only single value in the column
+EX: name
+multivalues : the attribute contain more than one multiple value
+it is represented by double ellipse 
+EX : phno (as the phone no can have more than one to a person)
+derived : the attribute is depended on other attribute
+EX: age depends on dob
+key :the key attribute represented by ellipse underline
+the attribute contain primary key
+
+relationships:
+types of of relation ships
+unary relationship : the relation between same entity self relationship
+binary relationship : the relation between two tables
+EX:person----->addhar id(1:1)
+ternary relationship : the relation between three tables
+EX :  student ----->course------->batch
+n relationships : the relation between more than three tables
+Types of relationship association :
+one to one : table 1 one row relationship with table2 one row
+one to many : the first table one row is relationship between many rows in another table
+many to one : the first table multiple row is relationship between one row in another table
+many to many : the first table multiple row is relationship between mutiple row in another table
+
