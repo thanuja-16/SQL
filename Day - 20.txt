@@ -1,0 +1,440 @@
+Day - 20
+3|9|2026
+
+window functions:
+window function mainly used to finding rows, ranking
+3 Types of functions
+ranking function
+i.row_number()
+ii.rank()
+iii.dense_rank()
+1v. ntile()
+
+aggregate functions:
+avg()
+max()
+min()
+count()
+sum()
+
+offset function:
+first_value()
+lag()
+lead()
+
+syntax of window function
+select columlist,functionname over() as aliasname from table;
+
+in window function represented by over():
+partition by : it is used ti divided the data into group based on column .
+order by : to sort the data into a order based on column.
+
+select department, avg(salary) from employee group by department;
++------------+--------------+
+| department | avg(salary)  |
++------------+--------------+
+| IT         | 65000.000000 |
+| HR         | 42666.666667 |
+| Finance    | 59000.000000 |
+| Sales      | 48666.666667 |
++------------+--------------+
+
+select emp_id,emp_name,department,row_number()
+over(partition by department) as eRownumber from employee;
+
++--------+----------+------------+------------+
+| emp_id | emp_name | department | eRownumber |
++--------+----------+------------+------------+
+|      4 | Sneha    | Finance    |          1 |
+|      8 | Meena    | Finance    |          2 |
+|     11 | Suresh   | Finance    |          3 |
+|     15 | Naveen   | Finance    |          4 |
+|      2 | Priya    | HR         |          1 |
+|      7 | Vijay    | HR         |          2 |
+|     12 | Pooja    | HR         |          3 |
+|      1 | Rahul    | IT         |          1 |
+|      3 | Arun     | IT         |          2 |
+|      6 | Anjali   | IT         |          3 |
+|     10 | Divya    | IT         |          4 |
+|     14 | Lakshmi  | IT         |          5 |
+|      5 | Kiran    | Sales      |          1 |
+|      9 | Ravi     | Sales      |          2 |
+|     13 | Manoj    | Sales      |          3 |
++--------+----------+------------+------------+
+select emp_id,emp_name,department,row_number()
+over(partition by emp_id) as eRownumber from employee;
++--------+----------+------------+------------+
+| emp_id | emp_name | department | eRownumber |
++--------+----------+------------+------------+
+|      1 | Rahul    | IT         |          1 |
+|      2 | Priya    | HR         |          1 |
+|      3 | Arun     | IT         |          1 |
+|      4 | Sneha    | Finance    |          1 |
+|      5 | Kiran    | Sales      |          1 |
+|      6 | Anjali   | IT         |          1 |
+|      7 | Vijay    | HR         |          1 |
+|      8 | Meena    | Finance    |          1 |
+|      9 | Ravi     | Sales      |          1 |
+|     10 | Divya    | IT         |          1 |
+|     11 | Suresh   | Finance    |          1 |
+|     12 | Pooja    | HR         |          1 |
+|     13 | Manoj    | Sales      |          1 |
+|     14 | Lakshmi  | IT         |          1 |
+|     15 | Naveen   | Finance    |          1 |
++--------+----------+------------+------------+
+
+select emp_id,emp_name,department,row_number()
+over(order by emp_id) as eRownumber from employee;
++--------+----------+------------+------------+
+| emp_id | emp_name | department | eRownumber |
++--------+----------+------------+------------+
+|      1 | Rahul    | IT         |          1 |
+|      2 | Priya    | HR         |          2 |
+|      3 | Arun     | IT         |          3 |
+|      4 | Sneha    | Finance    |          4 |
+|      5 | Kiran    | Sales      |          5 |
+|      6 | Anjali   | IT         |          6 |
+|      7 | Vijay    | HR         |          7 |
+|      8 | Meena    | Finance    |          8 |
+|      9 | Ravi     | Sales      |          9 |
+|     10 | Divya    | IT         |         10 |
+|     11 | Suresh   | Finance    |         11 |
+|     12 | Pooja    | HR         |         12 |
+|     13 | Manoj    | Sales      |         13 |
+|     14 | Lakshmi  | IT         |         14 |
+|     15 | Naveen   | Finance    |         15 |
++--------+----------+------------+------------+
+
+select emp_id,emp_name,salary,rank() over(order by salary desc) as rsalary
+from employee;
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | rsalary |
++--------+----------+----------+---------+
+|     14 | Lakshmi  | 75000.00 |       1 |
+|      6 | Anjali   | 72000.00 |       2 |
+|     11 | Suresh   | 68000.00 |       3 |
+|      3 | Arun     | 65000.00 |       4 |
+|      8 | Meena    | 60000.00 |       5 |
+|     10 | Divya    | 58000.00 |       6 |
+|     15 | Naveen   | 56000.00 |       7 |
+|      1 | Rahul    | 55000.00 |       8 |
+|      4 | Sneha    | 52000.00 |       9 |
+|     13 | Manoj    | 51000.00 |      10 |
+|      5 | Kiran    | 48000.00 |      11 |
+|      9 | Ravi     | 47000.00 |      12 |
+|      2 | Priya    | 45000.00 |      13 |
+|     12 | Pooja    | 43000.00 |      14 |
+|      7 | Vijay    | 40000.00 |      15 |
++--------+----------+----------+---------+
+
+in rank function if the same two have same value then it assing same rank and skip next rank
+in density rank if the same two have same value then it assing same rank but does not  skip next rank
+
+select emp_id,emp_name,salary,dense_rank() over(order by salary desc) as rsalary
+from employee;
++--------+----------+----------+---------+
+| emp_id | emp_name | salary   | rsalary |
++--------+----------+----------+---------+
+|     14 | Lakshmi  | 75000.00 |       1 |
+|      6 | Anjali   | 72000.00 |       2 |
+|     11 | Suresh   | 68000.00 |       3 |
+|      3 | Arun     | 65000.00 |       4 |
+|      8 | Meena    | 60000.00 |       5 |
+|     10 | Divya    | 58000.00 |       6 |
+|     15 | Naveen   | 56000.00 |       7 |
+|      1 | Rahul    | 55000.00 |       8 |
+|      4 | Sneha    | 52000.00 |       9 |
+|     13 | Manoj    | 51000.00 |      10 |
+|      5 | Kiran    | 48000.00 |      11 |
+|      9 | Ravi     | 47000.00 |      12 |
+|      2 | Priya    | 45000.00 |      13 |
+|     12 | Pooja    | 43000.00 |      14 |
+|      7 | Vijay    | 40000.00 |      15 |
++--------+----------+----------+---------+
+
+select emp_name,salary,avg(salary) over(partition by department) as avgsal from employee;
++----------+----------+--------------+
+| emp_name | salary   | avgsal       |
++----------+----------+--------------+
+| Sneha    | 52000.00 | 59000.000000 |
+| Meena    | 60000.00 | 59000.000000 |
+| Suresh   | 68000.00 | 59000.000000 |
+| Naveen   | 56000.00 | 59000.000000 |
+| Priya    | 45000.00 | 42666.666667 |
+| Vijay    | 40000.00 | 42666.666667 |
+| Pooja    | 43000.00 | 42666.666667 |
+| Rahul    | 55000.00 | 65000.000000 |
+| Arun     | 65000.00 | 65000.000000 |
+| Anjali   | 72000.00 | 65000.000000 |
+| Divya    | 58000.00 | 65000.000000 |
+| Lakshmi  | 75000.00 | 65000.000000 |
+| Kiran    | 48000.00 | 48666.666667 |
+| Ravi     | 47000.00 | 48666.666667 |
+| Manoj    | 51000.00 | 48666.666667 |
++----------+----------+--------------+
+
+select emp_name,salary,department,avg(salary) over(partition by department) as avgsal from employee;
++----------+----------+------------+--------------+
+| emp_name | salary   | department | avgsal       |
++----------+----------+------------+--------------+
+| Sneha    | 52000.00 | Finance    | 59000.000000 |
+| Meena    | 60000.00 | Finance    | 59000.000000 |
+| Suresh   | 68000.00 | Finance    | 59000.000000 |
+| Naveen   | 56000.00 | Finance    | 59000.000000 |
+| Priya    | 45000.00 | HR         | 42666.666667 |
+| Vijay    | 40000.00 | HR         | 42666.666667 |
+| Pooja    | 43000.00 | HR         | 42666.666667 |
+| Rahul    | 55000.00 | IT         | 65000.000000 |
+| Arun     | 65000.00 | IT         | 65000.000000 |
+| Anjali   | 72000.00 | IT         | 65000.000000 |
+| Divya    | 58000.00 | IT         | 65000.000000 |
+| Lakshmi  | 75000.00 | IT         | 65000.000000 |
+| Kiran    | 48000.00 | Sales      | 48666.666667 |
+| Ravi     | 47000.00 | Sales      | 48666.666667 |
+| Manoj    | 51000.00 | Sales      | 48666.666667 |
++----------+----------+------------+--------------+
+
+select emp_id,emp_name,rank() over(partition by department order by salary)
+as drank from employee;  
++--------+----------+-------+
+| emp_id | emp_name | drank |
++--------+----------+-------+
+|      4 | Sneha    |     1 |
+|     15 | Naveen   |     2 |
+|      8 | Meena    |     3 |
+|     11 | Suresh   |     4 |
+|      7 | Vijay    |     1 |
+|     12 | Pooja    |     2 |
+|      2 | Priya    |     3 |
+|      1 | Rahul    |     1 |
+|     10 | Divya    |     2 |
+|      3 | Arun     |     3 |
+|      6 | Anjali   |     4 |
+|     14 | Lakshmi  |     5 |
+|      9 | Ravi     |     1 |
+|      5 | Kiran    |     2 |
+|     13 | Manoj    |     3 |
++--------+----------+-------+
+select emp_id,emp_name,department,rank() over(partition by department order by salary)
+as drank from employee;  
+
++--------+----------+------------+-------+
+| emp_id | emp_name | department | drank |
++--------+----------+------------+-------+
+|      4 | Sneha    | Finance    |     1 |
+|     15 | Naveen   | Finance    |     2 |
+|      8 | Meena    | Finance    |     3 |
+|     11 | Suresh   | Finance    |     4 |
+|      7 | Vijay    | HR         |     1 |
+|     12 | Pooja    | HR         |     2 |
+|      2 | Priya    | HR         |     3 |
+|      1 | Rahul    | IT         |     1 |
+|     10 | Divya    | IT         |     2 |
+|      3 | Arun     | IT         |     3 |
+|      6 | Anjali   | IT         |     4 |
+|     14 | Lakshmi  | IT         |     5 |
+|      9 | Ravi     | Sales      |     1 |
+|      5 | Kiran    | Sales      |     2 |
+|     13 | Manoj    | Sales      |     3 |
++--------+----------+------------+-------+
+
+select emp_id,emp_name,department,salary,rank() over(partition by department order by salary)
+as department drank from employee;  
++--------+----------+------------+----------+-------+
+| emp_id | emp_name | department | salary   | drank |
++--------+----------+------------+----------+-------+
+|     11 | Suresh   | Finance    | 68000.00 |     1 |
+|      8 | Meena    | Finance    | 60000.00 |     2 |
+|     15 | Naveen   | Finance    | 56000.00 |     3 |
+|      4 | Sneha    | Finance    | 52000.00 |     4 |
+|      2 | Priya    | HR         | 45000.00 |     1 |
+|     12 | Pooja    | HR         | 43000.00 |     2 |
+|      7 | Vijay    | HR         | 40000.00 |     3 |
+|     14 | Lakshmi  | IT         | 75000.00 |     1 |
+|      6 | Anjali   | IT         | 72000.00 |     2 |
+|      3 | Arun     | IT         | 65000.00 |     3 |
+|     10 | Divya    | IT         | 58000.00 |     4 |
+|      1 | Rahul    | IT         | 55000.00 |     5 |
+|     13 | Manoj    | Sales      | 51000.00 |     1 |
+|      5 | Kiran    | Sales      | 48000.00 |     2 |
+|      9 | Ravi     | Sales      | 47000.00 |     3 |
++--------+----------+------------+----------+-------+
+
+select emp_id,emp_name,department,salary,rank() over(partition by department order by salary desc)
+as drank from employee; 
++--------+----------+------------+----------+-------+
+| emp_id | emp_name | department | salary   | drank |
++--------+----------+------------+----------+-------+
+|     11 | Suresh   | Finance    | 68000.00 |     1 |
+|      8 | Meena    | Finance    | 60000.00 |     2 |
+|     15 | Naveen   | Finance    | 56000.00 |     3 |
+|      4 | Sneha    | Finance    | 52000.00 |     4 |
+|      2 | Priya    | HR         | 45000.00 |     1 |
+|     12 | Pooja    | HR         | 43000.00 |     2 |
+|      7 | Vijay    | HR         | 40000.00 |     3 |
+|     14 | Lakshmi  | IT         | 75000.00 |     1 |
+|      6 | Anjali   | IT         | 72000.00 |     2 |
+|      3 | Arun     | IT         | 65000.00 |     3 |
+|     10 | Divya    | IT         | 58000.00 |     4 |
+|      1 | Rahul    | IT         | 55000.00 |     5 |
+|     13 | Manoj    | Sales      | 51000.00 |     1 |
+|      5 | Kiran    | Sales      | 48000.00 |     2 |
+|      9 | Ravi     | Sales      | 47000.00 |     3 |
++--------+----------+------------+----------+-------+
+
+select emp_name,department,salary,rank()
+over(order by salary desc)as rsalary from employee;
++----------+------------+----------+---------+
+| emp_name | department | salary   | rsalary |
++----------+------------+----------+---------+
+| Lakshmi  | IT         | 75000.00 |       1 |
+| Anjali   | IT         | 72000.00 |       2 |
+| Suresh   | Finance    | 68000.00 |       3 |
+| Arun     | IT         | 65000.00 |       4 |
+| Meena    | Finance    | 60000.00 |       5 |
+| Divya    | IT         | 58000.00 |       6 |
+| Naveen   | Finance    | 56000.00 |       7 |
+| Rahul    | IT         | 55000.00 |       8 |
+| Sneha    | Finance    | 52000.00 |       9 |
+| Manoj    | Sales      | 51000.00 |      10 |
+| Kiran    | Sales      | 48000.00 |      11 |
+| Ravi     | Sales      | 47000.00 |      12 |
+| Priya    | HR         | 45000.00 |      13 |
+| Pooja    | HR         | 43000.00 |      14 |
+| Vijay    | HR         | 40000.00 |      15 |
++----------+------------+----------+---------+
+
+select * from 
+(select emp_name,department,salary,rank()
+over(order by salary desc)as rsalary from employee)emp
+where rsalary=3;
++----------+------------+----------+---------+
+| emp_name | department | salary   | rsalary |
++----------+------------+----------+---------+
+| Suresh   | Finance    | 68000.00 |       3 |
++----------+------------+----------+---------+
+
+select * from 
+(select emp_name,department,salary,rank()
+over(partition by department order by salary desc)as rsalary from employee)emp
+where rsalary=1;
++----------+------------+----------+---------+
+| emp_name | department | salary   | rsalary |
++----------+------------+----------+---------+
+| Suresh   | Finance    | 68000.00 |       1 |
+| Priya    | HR         | 45000.00 |       1 |
+| Lakshmi  | IT         | 75000.00 |       1 |
+| Manoj    | Sales      | 51000.00 |       1 |
++----------+------------+----------+---------+
+
+select * from 
+(select emp_name,department,salary,rank()
+over(partition by department order by salary desc)as rsalary from employee)emp
+where rsalary<=2;
++----------+------------+----------+---------+
+| emp_name | department | salary   | rsalary |
++----------+------------+----------+---------+
+| Suresh   | Finance    | 68000.00 |       1 |
+| Meena    | Finance    | 60000.00 |       2 |
+| Priya    | HR         | 45000.00 |       1 |
+| Pooja    | HR         | 43000.00 |       2 |
+| Lakshmi  | IT         | 75000.00 |       1 |
+| Anjali   | IT         | 72000.00 |       2 |
+| Manoj    | Sales      | 51000.00 |       1 |
+| Kiran    | Sales      | 48000.00 |       2 |
++----------+------------+----------+---------+
+
+select * from
+(select emp_id,emp_name,row_number()
+over(order by emp_id) as erow_number from employee) as emp 
+where erow_number=9;
++--------+----------+-------------+
+| emp_id | emp_name | erow_number |
++--------+----------+-------------+
+|      9 | Ravi     |           9 |
++--------+----------+-------------+
+
+Assignments : 
+select row_number() over(order by salary desc) as seq_no,
+ emp_name, department, salary from employees;
++--------+----------+------------+--------+
+| seq_no | emp_name | department | salary |
++--------+----------+------------+--------+
+|      1 | Meena    | Sales      |  90000 |
+|      2 | Neha     | Finance    |  85000 |
+|      3 | Pooja    | Finance    |  85000 |
+|      4 | Priya    | IT         |  80000 |
+|      5 | Kiran    | IT         |  75000 |
+|      6 | Suresh   | Finance    |  75000 |
+|      7 | Arjun    | Sales      |  70000 |
+|      8 | Vijay    | Sales      |  70000 |
+|      9 | Rahul    | HR         |  65000 |
+|     10 | Sneha    | HR         |  65000 |
+|     11 | Ravi     | IT         |  60000 |
+|     12 | Anu      | HR         |  55000 |
++--------+----------+------------+--------+
+
+select 
+  department,
+  emp_name,
+  salary,
+  row_number() over (partition by department order by salary desc) as seq_no
+from employees;
++------------+----------+--------+--------+
+| department | emp_name | salary | seq_no |
++------------+----------+--------+--------+
+| Finance    | Neha     |  85000 |      1 |
+| Finance    | Pooja    |  85000 |      2 |
+| Finance    | Suresh   |  75000 |      3 |
+| HR         | Rahul    |  65000 |      1 |
+| HR         | Sneha    |  65000 |      2 |
+| HR         | Anu      |  55000 |      3 |
+| IT         | Priya    |  80000 |      1 |
+| IT         | Kiran    |  75000 |      2 |
+| IT         | Ravi     |  60000 |      3 |
+| Sales      | Meena    |  90000 |      1 |
+| Sales      | Arjun    |  70000 |      2 |
+| Sales      | Vijay    |  70000 |      3 |
++------------+----------+--------+--------+
+12 rows in set (0.00 sec)
+
+select emp_name, department, salary,
+ rank() over(order by salary desc) as rank_no
+from employees;
++----------+------------+--------+---------+
+| emp_name | department | salary | rank_no |
++----------+------------+--------+---------+
+| Meena    | Sales      |  90000 |       1 |
+| Neha     | Finance    |  85000 |       2 |
+| Pooja    | Finance    |  85000 |       2 |
+| Priya    | IT         |  80000 |       4 |
+| Kiran    | IT         |  75000 |       5 |
+| Suresh   | Finance    |  75000 |       5 |
+| Arjun    | Sales      |  70000 |       7 |
+| Vijay    | Sales      |  70000 |       7 |
+| Rahul    | HR         |  65000 |       9 |
+| Sneha    | HR         |  65000 |       9 |
+| Ravi     | IT         |  60000 |      11 |
+| Anu      | HR         |  55000 |      12 |
++----------+------------+--------+---------+
+
+ select emp_name, department, salary,
+ dense_rank() over(order by salary desc) as rank_no
+from employees;
+
++----------+------------+--------+---------+
+| emp_name | department | salary | rank_no |
++----------+------------+--------+---------+
+| Meena    | Sales      |  90000 |       1 |
+| Neha     | Finance    |  85000 |       2 |
+| Pooja    | Finance    |  85000 |       2 |
+| Priya    | IT         |  80000 |       3 |
+| Kiran    | IT         |  75000 |       4 |
+| Suresh   | Finance    |  75000 |       4 |
+| Arjun    | Sales      |  70000 |       5 |
+| Vijay    | Sales      |  70000 |       5 |
+| Rahul    | HR         |  65000 |       6 |
+| Sneha    | HR         |  65000 |       6 |
+| Ravi     | IT         |  60000 |       7 |
+| Anu      | HR         |  55000 |       8 |
++----------+------------+--------+---------+
