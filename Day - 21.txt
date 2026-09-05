@@ -1,0 +1,50 @@
+Day - 21
+4|9|2026
+
+Normalization:
+it is way to process & organizing the data into tables in database.
+main advantages :
+to reduce the data redudency.
+to avoid the duplicate value into a column
+to maintain data consistency.
+easy to write insert, update, delete, queries.
+
+normalization is work through using normal forms.
+1NF
+2NF
+3NF
+1NF: stands for first normal form
+in table to satisfy 1nf ,when every column contains atomic value(singe values)
+
+2NF : it is stands for second normal form
+the table is satisfied in 2NF , when the table satisfy 1NF and remove partial dependency.
+no non key attribute should dependent on part of the composite primary
+1NF + no partialdependency
+
+3NF : it stand for third normal form
+2NF + no transitivedependency.
+one non attribute column dependence on another non attribute column   
+
+composite key:
+in one table combine the more than one column identify uniquely.
+EX: sid, did, marks, dept_name
+    101   2    
+    102   3
+    108   2
+
+create table emp(sid int, did int, marks int, dept_name varchar(20),
+primary key(sid,did);
+
+Candidate key :
+the column contains unique values.
+in one table contains more than one candidate key.
+in one candidate key represented by primary key.
+
+partial dependency : the column that depends on any one composite key.
+the column must depend on both composite key to so it doesn't satisfy partial dependency
+no non key attribute should dependent on part of the composite primary
+transitive dependency:
+if non key attribute should on another non key attribute
+one non attribute column dependence on another non attribute column   
+
+
